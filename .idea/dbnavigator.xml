@@ -30,9 +30,7 @@ select * from userfavorites;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="ef704218-b149-4c73-a03f-90e0c40adbe8" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ef704218-b149-4c73-a03f-90e0c40adbe8" />
