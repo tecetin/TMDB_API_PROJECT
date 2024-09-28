@@ -18,7 +18,7 @@ public class ConfigReader {
             properties.load(fis);
 
         } catch (IOException e) {
-            System.out.println("properties dosyasi oku namadi");
+            System.out.println("properties dosyasi okunamadi");
         }
     }
 

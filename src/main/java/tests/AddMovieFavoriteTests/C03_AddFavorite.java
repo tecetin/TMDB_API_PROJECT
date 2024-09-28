@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C03_AddFavourite extends TestBase {
+public class C03_AddFavorite extends TestBase {
 
     static String session_id = "";
 

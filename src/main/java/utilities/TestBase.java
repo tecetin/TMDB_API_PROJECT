@@ -70,6 +70,7 @@ public class TestBase {
                 throw new RuntimeException(e);
             }
         }
+
         Driver.quitDriver();
 
     }

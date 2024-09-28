@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import tests.AddMovieFavoriteTests.C01_KullaniciGirisi;
 import utilities.Driver;
 import utilities.TestBase;
 
