@@ -10,9 +10,9 @@ import java.time.Duration;
 
 public class TestBase {
 
-    public final String token = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZmRmNjk0OGI5NWRkM2ZlMjIwYTM3ODIwNTAzNWZjYiIsIm5iZiI6MTcyNjgxNzAwNi4yMDI1MTEsInN1YiI6IjY2ZWMzYzkxOWJkNDI1MDQzMDc0YjUyZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cO9cduuFrnxq_m885-KeHxTjr1vT6YklpGZ7Ap4KZCg";
-    public final int accountId = 21527979;
-    public final String api_key = "bfdf6948b95dd3fe220a378205035fcb";
+    public final String token = "";
+    public final int accountId = 0;
+    public final String api_key = "";
     public static String favsTableName = "userfavorites";
 
     public static TMDBPage page = new TMDBPage();
