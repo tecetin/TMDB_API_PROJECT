@@ -49,6 +49,21 @@ API Ayarları:
 TestBase sınıfında bulunan token ve accountId değerlerini TMDB sitesinden alarak ilgili alanlara ekleyin.
 Bu adımlar tamamlandıktan sonra, test senaryoları sorunsuz bir şekilde çalıştırılabilir.
 
+### Testleri Çalıştırma
+Testler her bir class üzerinden ayrı ayrı çalıştırılabileceği gibi, xmlFiles klasörü içersinde bulunan RunAll.xml dosyası üzerinden toplu olarak çalıştırabilirsiniz.
+
+Testleri çalıştırdıktan sonra Allure Raporu oluşturmak için terminal üzerinden şu komutu çalıştırın:
+
+```bash
+allure generate --clean target/allure-results
+```
+
+Raporu tarayıcıda görüntülemek için ise şu komutu çalıştırmalısınız:
+
+```bash
+allure serve target/allure-results
+```
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Overview
 This project is a comprehensive test automation framework designed for The Movie Database (TMDB) application. It leverages APIs and database operations to automate key user interactions with the TMDB platform. The framework includes features such as user login automation, fetching user details, and managing favorite movies and TV shows. The test automation uses various technologies, including Java, TestNG, Postman, and PostgreSQL.
@@ -99,3 +114,19 @@ API Settings:
 
 In the TestBase class, update the token and accountId values, which need to be retrieved from the TMDB site.
 Once these steps are completed, the test scenarios can be executed smoothly.
+
+### Running the Tests
+
+You can run the tests individually through each class, or collectively by using the `RunAll.xml` file located in the `xmlFiles` directory.
+
+After running the tests, to generate the Allure Report, execute the following command in the terminal:
+
+```bash
+allure generate --clean target/allure-results
+```
+
+To view the report in the browser, run this command:
+
+```bash
+allure serve target/allure-results
+```
