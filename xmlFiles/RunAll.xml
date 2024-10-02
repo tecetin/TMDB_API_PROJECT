@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test name="Test">
+        <classes>
+            <class name="tests.AddMovieFavoriteTests.C01_GetUserDetails"/>
+            <class name="tests.AddMovieFavoriteTests.C02_AddFavorite"/>
+            <class name="tests.AddMovieFavoriteTests.C03_SeeFavoriteMovies"/>
+        </classes>
+    </test>
+</suite>

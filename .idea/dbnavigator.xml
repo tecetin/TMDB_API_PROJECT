@@ -23,7 +23,9 @@ update userfavorites set no = default, id = default, overview = default, origina
 
 update userfavorites set title = 'Mindhunter' where no = 7
 
-select * from userfavorites;]]></console>
+select * from userfavorites;
+
+SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE table_catalog = 'TMDBTestDatabase' and TABLE_NAME='userfavorites']]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

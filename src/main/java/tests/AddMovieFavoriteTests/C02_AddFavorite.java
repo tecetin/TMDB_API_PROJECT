@@ -1,11 +1,20 @@
 package tests.AddMovieFavoriteTests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+import tests.FindSessionId;
+import tests.KullaniciGirisi;
+import tests.personalDataBase;
+import utilities.Driver;
 import utilities.TestBase;
 
 import java.sql.PreparedStatement;
@@ -14,7 +23,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C03_AddFavorite extends TestBase {
+@Epic("Epic-02")
+@Feature("Kullanici Profilinde Favorilere Ekleme")
+public class C02_AddFavorite extends TestBase {
 
     static String session_id = "";
 
@@ -168,23 +179,31 @@ public class C03_AddFavorite extends TestBase {
     }
 
 
-    @Test
+    @Test (description = "Kullanici girisi yapilarak database dizi-film verileri favorilere eklenir")
+    @Severity(SeverityLevel.CRITICAL)
     //ana test
     public void addFavorites() throws SQLException {
 
         //Filmi favoriye eklemek için kullanıcı girisi yapmak gerekiyor.
-        C01_KullaniciGirisi calistir = new C01_KullaniciGirisi();
+        KullaniciGirisi calistir = new KullaniciGirisi();
         calistir.logIn();
 
+        //Databasede gerekli tablo varlığı kontrol edilir.
+        String query = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE table_catalog = 'TMDBTestDatabase' and TABLE_NAME='"+ favsTableName +"'";
+        rs = st.executeQuery(query);
+
+        if (!rs.next()){
+            personalDataBase test = new personalDataBase();
+            test.tablo();
+        }
+
         //POST işlemi için session_id alıyoruz 60 dakika içinde geçerli, tekrar almak için yorumdan çıkarmak gerekli
-//        FindSessionId test = new FindSessionId();
-//        session_id = test.createSessionId();
+        FindSessionId test = new FindSessionId();
+        session_id = test.createSessionId();
 
         List<Integer> mediaIDs = mediaDetailsBul();
 
         for (int id : mediaIDs) {
-
-            System.out.println(id);
 
             //POST https://api.themoviedb.org/3/account/{account_id}/favorite
             //{
@@ -194,7 +213,7 @@ public class C03_AddFavorite extends TestBase {
             //}
 
             //Database'den media Type çekilir
-            String query = "SELECT media_type FROM " + favsTableName + " WHERE id = ?";
+            query = "SELECT media_type FROM " + favsTableName + " WHERE id = ?";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
@@ -214,13 +233,10 @@ public class C03_AddFavorite extends TestBase {
             requestBody.put("media_id", id);
             requestBody.put("favorite", true);
 
-            System.out.print("requestBody oluşturuldu: "); //-------------------------------------------------------------------------------------------------------------------
-            System.out.println(requestBody);
-
             RestAssured.baseURI = "https://api.themoviedb.org";
 
             Response response = RestAssured
-                    .given()
+                    .given().filter(new AllureRestAssured())
                     .pathParam("account_id", accountId)
                     .queryParam("session_id", session_id)
                     .header("Authorization", token)
@@ -231,6 +247,7 @@ public class C03_AddFavorite extends TestBase {
                     .post("/3/account/{account_id}/favorite")
                     .thenReturn();
         }
+        Driver.quitDriver();
     }
 }
 

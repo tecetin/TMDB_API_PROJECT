@@ -1,25 +1,34 @@
 package tests.AddMovieFavoriteTests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import tests.KullaniciGirisi;
+import utilities.Driver;
 import utilities.TestBase;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C04_SeeFavoriteMovies extends TestBase {
+@Epic("Epic-03")
+@Feature("Kullanici Favori Medya Elemanlarini Doğrulama")
+public class C03_SeeFavoriteMovies extends TestBase {
 
-    @Test
+    @Test (description = "Favorilere eklenen medya elemanlarini API ve JDBC ile doğrulama")
+    @Severity(SeverityLevel.MINOR)
     public void favMoviesAccount() throws SQLException {
 
-        C01_KullaniciGirisi giris = new C01_KullaniciGirisi();
+        KullaniciGirisi giris = new KullaniciGirisi();
         giris.logIn();
 
         //GET https://api.themoviedb.org/3/account/{account_id}/favorite/moviesDB
@@ -39,7 +48,7 @@ public class C04_SeeFavoriteMovies extends TestBase {
 
         // Eğer boyutlar eşleşmiyorsa favori filmleri güncelle
         if (isSizeMismatch) {
-            C03_AddFavorite addFavorite = new C03_AddFavorite();
+            C02_AddFavorite addFavorite = new C02_AddFavorite();
             addFavorite.addFavorites();
 
             // API ve veritabanı verilerini tekrar al
@@ -58,7 +67,7 @@ public class C04_SeeFavoriteMovies extends TestBase {
         for (String movie : moviesDB) {
             Assert.assertTrue(moviesAccount.contains(movie), "API'de bulunmayan film: " + movie);
         }
-
+        Driver.quitDriver();
     }
 
     private List<String> movieListFromAPI() {
@@ -66,7 +75,7 @@ public class C04_SeeFavoriteMovies extends TestBase {
         RestAssured.baseURI = "https://api.themoviedb.org";
 
         Response response = RestAssured
-                .given()
+                .given().filter(new AllureRestAssured())
                 .pathParam("account_id", accountId)
                 .header("Authorization", token)
                 .when()

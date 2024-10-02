@@ -5,10 +5,13 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import pages.TMDBPage;
 import utilities.Driver;
 import utilities.TestBase;
 
 public class FindSessionId extends TestBase {
+
+    TMDBPage page = new TMDBPage();
 
     public String createSessionId() { /*Kullanıcı girişi yapılmadan çalışmaz*/
 
@@ -33,7 +36,7 @@ public class FindSessionId extends TestBase {
         JSONObject jsonResponse = new JSONObject(response.asString());
         String request_token = jsonResponse.getString("request_token");
 
-        System.out.println("request token: " +request_token);
+        //System.out.println("request token: " +request_token);
 
         //Get the user to authorize the request token
         String authorizeToken = "https://www.themoviedb.org/authenticate/" + request_token;
@@ -68,7 +71,7 @@ public class FindSessionId extends TestBase {
         jsonResponse = new JSONObject(response.asString());
         session_id = jsonResponse.getString("session_id");
 
-        System.out.println("session id: " + session_id);
+        //System.out.println("session id: " + session_id);
 
         return session_id;
     }
